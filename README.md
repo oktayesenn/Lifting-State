@@ -12,7 +12,7 @@ Let's look at a search filter as an example. This app will have two basic compon
 
 Our data will be simple - a list of fruits. The app will end up looking something like this:
 
-![Fruit filter app](./assets/filter-example.png)
+![Fruit filter app](./public/filter-example.png)
 
 When building a React app, it's important to take time to define the app's structure before you start writing code. I'm going to define the **components** and the **state** I need before I write the code.
 
