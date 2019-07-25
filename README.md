@@ -161,11 +161,7 @@ it to the child components.
 
 Once you have your data structured well, it's easier to add features to your
 applications or make changes to them. Because all of our data lives at the top
-of the tree, we can send it where we want. The full code for the fruit filter is
-available [at this CodePen](https://codepen.io/SuperTernary/pen/qjQVZM).
-
-Fork
-the CodePen - you're going to add a feature.
+of the tree, we can send it where we want.
 
 - Add another child component to the
 `FruitContainer` that displays the fruits that do _not_ match the filter value
@@ -173,47 +169,6 @@ the CodePen - you're going to add a feature.
 
 *Hint: Will you need to have a new state?*
 
-## Solution - Unmatching Filter
-Solution code: https://codepen.io/SuperTernary/pen/mMWddo
-
-Here's a solution showing the Fruit list with two lists. One list shows fruits
-matching the search term, and below that, the second list shows every other fruit left in
-the list. The solution reuses the `<FruitList>` component to display a list of fruits,
-except it is passed a different list of fruits.
-
-```html
-<div>
- <FruitFilter value={this.state.filterValue} onChange={this.handleFilterChange} />
- <p>Matching fruits:</p>
- <FruitList fruits={this.state.fruitsToDisplay} />
- <p>Unmatched fruits:</p>
- <FruitList fruits={this.state.unmatchedFruits} />
-</div>
-```
-
-Now the app maintains two lists
-of fruits:
-- `fruitsToDisplay` shows all fruits that match the search
-term.
-- `unmatchedFruits` keeps track of which fruits don't match
-the current search term.
-
-Notice that in the constructor the app initializes the value of `unmatchedFruits` to just an empty list. Within `HandleChange`, we now need to update that list.
-
-```js
-// remove fruits that don't contain the filter value
-const filteredFruitList = props.fruits.filter(fruit =>
-  fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
-// perform the opposite logic to create a list of fruits that don't match.
-const unmatchedFruits = props.fruits.filter(fruit =>
- !fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
-// return new state with the filtered fruit list and the new value of the filter
-return {
- fruitsToDisplay: filteredFruitList,
- unmatchedFruits: unmatchedFruits,
- filterValue,
-}
-```
 
 ## Final Thoughts
 
