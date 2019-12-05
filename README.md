@@ -2,7 +2,7 @@
 
 # Lifting State Practice
 
-In React applications, data usually flows from the top down. Why do we care? How does this apply?
+In React applications, data flows from the top down. Why do we care? How does this apply?
 
 When several components in a view need to share `state`, you lift, or **hoist**, the `state` up so that it's available to all the components that need it. Define the state in the highest component you can, so that you can pass it to any components which will need it.
 
