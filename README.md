@@ -54,7 +54,7 @@ const FruitList = props => (
 const FruitFilter = props => (
   <div>
     <label>Filter these Fruits: </label>
-    <input type="text" value={props.value} onChange={props.onChange} name="fruit-filter" />
+    <input type="text" onChange={props.handleFilterChange} name="fruit-filter" />
    </div>
 )
 ```
@@ -83,18 +83,16 @@ constructor(props) {
 I'll need a method to update the `state` when the filter value changes. This method will store the filter `state`, and filter the list of fruits to display. I'll pass this change handler to the filter component to react to user input.
 
 ```javascript
-handleFilterChange(event) {
+handleFilterChange = (event) => {
   event.preventDefault()
   const filterValue = event.target.value
-  this.setState((prevState, props) => {
-    // remove fruits that don't contain the filter value
-    const filteredFruitList = props.fruits.filter(fruit =>
-      fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
-    // return new state with the filtered fruit list and the new value of the filter
-    return {
-      fruitsToDisplay: filteredFruitList,
-      filterValue
-    }
+  
+  const filteredFruitList = this.props.fruits.filter(fruit => {
+      return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
+  })
+
+  this.setState({
+      fruitsToDisplay: filteredFruitList
   })
 }
 ```
@@ -105,7 +103,7 @@ Finally, I need to render my child components.
 render() {
     return (
       <div>
-        <FruitFilter value={this.state.filterValue} onChange={this.handleFilterChange} />
+        <FruitFilter handleFilterChange={this.handleFilterChange} />
         <FruitList fruits={this.state.fruitsToDisplay} />
       </div>
     )
@@ -129,25 +127,23 @@ class FruitContainer extends Component {
     this.handleFilterChange = this.handleFilterChange.bind(this)
   }
 
-  handleFilterChange(event) {
-    event.preventDefault()
-    const filterValue = event.target.value;
-    this.setState((prevState, props) => {
-      // remove fruits that don't contain the filter value
-      const filteredFruitList = props.fruits.filter(fruit =>
-        fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
-      // return new state with the filtered fruit list and the new value of the filter
-      return {
-        fruitsToDisplay: filteredFruitList,
-        filterValue,
-      }
-    })
-  }
+  handleFilterChange = (event) => {
+  event.preventDefault()
+  const filterValue = event.target.value
+  
+  const filteredFruitList = this.props.fruits.filter(fruit => {
+      return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
+  })
+
+  this.setState({
+      fruitsToDisplay: filteredFruitList
+  })
+}
 
   render() {
     return (
       <div>
-        <FruitFilter value={this.state.filterValue} onChange={this.handleFilterChange} />
+        <FruitFilter handleFilterChange={this.handleFilterChange} />
         <FruitList fruits={this.state.fruitsToDisplay} />
       </div>
     )
@@ -181,7 +177,7 @@ except it is passed a different list of fruits.
 
 ```html
 <div>
- <FruitFilter value={this.state.filterValue} onChange={this.handleFilterChange} />
+ <FruitFilter handleFilterChange={this.handleFilterChange} />
  <p>Matching fruits:</p>
  <FruitList fruits={this.state.fruitsToDisplay} />
  <p>Unmatched fruits:</p>
@@ -199,18 +195,18 @@ the current search term.
 Notice that in the constructor the app initializes the value of `unmatchedFruits` to just an empty list. Within `HandleChange`, we now need to update that list.
 
 ```js
-// remove fruits that don't contain the filter value
-const filteredFruitList = props.fruits.filter(fruit =>
-  fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
-// perform the opposite logic to create a list of fruits that don't match.
-const unmatchedFruits = props.fruits.filter(fruit =>
- !fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
-// return new state with the filtered fruit list and the new value of the filter
-return {
- fruitsToDisplay: filteredFruitList,
- unmatchedFruits: unmatchedFruits,
- filterValue,
-}
+const filteredFruitList = this.props.fruits.filter(fruit => {
+    return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
+})
+
+const unmatchedFruitsList = this.props.fruits.filter(fruit => {
+    return !fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
+})
+
+this.setState({
+    fruitsToDisplay: filteredFruitList,
+    unmatchedFruits: unmatchedFruitsList
+})
 ```
 
 ## Final Thoughts
