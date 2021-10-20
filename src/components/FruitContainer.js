@@ -10,22 +10,24 @@ class FruitContainer extends Component {
         filterValue: ''
       };
     }
-  
+
     handleFilterChange = (event) => {
+      event.preventDefault()
       const filterValue = event.target.value
-      this.setState((prevState, props) => {
-        const filteredFruitList = props.fruits.filter(fruit =>
-          fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
-          return {
-            fruitsToDisplay: filteredFruitList,
-            filterValue,
-          }
+      
+      const filteredFruitList = this.props.fruits.filter(fruit => {
+          return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
       })
-    }
+
+      this.setState({
+          fruitsToDisplay: filteredFruitList
+      })
+  }
+
     render() {
       return(
         <div>
-          <FruitFilter value={this.state.filterValue} onChange={this.handleFilterChange}/>
+          <FruitFilter handleFilterChange={this.handleFilterChange}/>
           <FruitList fruits={this.state.fruitsToDisplay}/>
         </div>
       )
