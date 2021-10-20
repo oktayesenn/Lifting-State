@@ -123,7 +123,6 @@ class FruitContainer extends Component {
       // intialize the filter value to an empty string
       filterValue: ''
     };
-    // JavaScript cleanup: bind the context of our filterChange event handler (to have `this` to the context and handler we want)
   }
 
   handleFilterChange = (event) => {
