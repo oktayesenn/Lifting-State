@@ -124,7 +124,6 @@ class FruitContainer extends Component {
       filterValue: ''
     };
     // JavaScript cleanup: bind the context of our filterChange event handler (to have `this` to the context and handler we want)
-    this.handleFilterChange = this.handleFilterChange.bind(this)
   }
 
   handleFilterChange = (event) => {
