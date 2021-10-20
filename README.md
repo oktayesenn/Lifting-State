@@ -48,7 +48,9 @@ const FruitList = props => (
      {props.fruits.map(fruit => <li>{fruit}</li>)}
   </ul>
 )
+```
 
+```js
 const FruitFilter = props => (
   <div>
     <label htmlFor="fruit-filter">Filter these Fruits: </label>
