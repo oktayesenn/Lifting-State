@@ -2,7 +2,7 @@ import React,{ useState } from "react"
 import FruitList from "./FruitList"
 import FruitFilter from "./FruitFilter"
 
-function FruitContainer(props) {
+const FruitContainer = (props) => {
 
   const [fruitsToDisplay, setFruitsToDisplay] = useState(props.fruits)
 
