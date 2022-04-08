@@ -1,37 +1,28 @@
-import React, {Component} from "react"
+import React,{ useState } from "react"
 import FruitList from "./FruitList"
 import FruitFilter from "./FruitFilter"
 
-class FruitContainer extends Component {
-    constructor(props) {
-      super(props)
-      this.state = {
-        fruitsToDisplay: props.fruits,
-        filterValue: ''
-      };
-    }
+function FruitContainer(props) {
 
-    handleFilterChange = (event) => {
-      event.preventDefault()
-      const filterValue = event.target.value
-      
-      const filteredFruitList = this.props.fruits.filter(fruit => {
-          return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
-      })
+  const [fruitsToDisplay, setFruitsToDisplay] = useState(props.fruits)
 
-      this.setState({
-          fruitsToDisplay: filteredFruitList
-      })
+  const handleFilterChange = (event) => {
+    event.preventDefault()
+    const filterValue = event.target.value
+    
+    const filteredFruitList = props.fruits.filter(fruit => {
+        return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
+    })
+
+    setFruitsToDisplay(filteredFruitList)
   }
 
-    render() {
-      return(
-        <div>
-          <FruitFilter handleFilterChange={this.handleFilterChange}/>
-          <FruitList fruits={this.state.fruitsToDisplay}/>
-        </div>
-      )
-    }
+    return(
+      <div>
+        <FruitFilter handleFilterChange={handleFilterChange}/>
+        <FruitList fruits={fruitsToDisplay}/>
+      </div>
+    )
   }
 
 export default FruitContainer
