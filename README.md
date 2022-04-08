@@ -172,7 +172,7 @@ term.
 - `unmatchedFruits` keeps track of which fruits don't match
 the current search term.
 
-Notice that in the constructor the app initializes the value of `unmatchedFruits` to just an empty list. Within `HandleChange`, we now need to update that list.
+Notice that in the container the app initializes the value of `unmatchedFruits` to just an empty list. Within `handleFilterChange`, we now need to update that list.
 
 ```js
 const filteredFruitList = props.fruits.filter(fruit => {
