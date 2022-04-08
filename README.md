@@ -69,85 +69,67 @@ My container will be a class with a few methods I'll use to initialize and updat
 In the constructor, I'll initialize the state:
 
 ```javascript
-constructor(props) {
-    super(props);
-    this.state = {
-      // initialize the fruit list to the full list passed in props
-      fruitsToDisplay: props.fruits,
-      // intialize the filter value to an empty string
-      filterValue: ''
-    }
-  }
+// initialize the fruit list to the full list passed in props
+const [fruitsToDisplay, setFruitsToDisplay] = useState(props.fruits)
 ```
 
 I'll need a method to update the `state` when the filter value changes. This method will store the filter `state`, and filter the list of fruits to display. I'll pass this change handler to the filter component to react to user input.
 
 ```javascript
-handleFilterChange = (event) => {
-  event.preventDefault()
-  const filterValue = event.target.value
-  
-  const filteredFruitList = this.props.fruits.filter(fruit => {
-      return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
-  })
+const handleFilterChange = (event) => {
+    event.preventDefault()
+    const filterValue = event.target.value
+    
+    const filteredFruitList = props.fruits.filter(fruit => {
+        return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
+    })
 
-  this.setState({
-      fruitsToDisplay: filteredFruitList
-  })
-}
+    setFruitsToDisplay(filteredFruitList)
+  }
 ```
 
 Finally, I need to render my child components.
 
 ```javascript
-render() {
-    return (
+return(
       <div>
-        <FruitFilter handleFilterChange={this.handleFilterChange} />
-        <FruitList fruits={this.state.fruitsToDisplay} />
+        <FruitFilter handleFilterChange={handleFilterChange}/>
+        <FruitList fruits={fruitsToDisplay}/>
       </div>
     )
-  }
 ```
 
 The full container component looks like this:
 
 ```javascript
-class FruitContainer extends Component {
+import React,{ useState } from "react"
+import FruitList from "./FruitList"
+import FruitFilter from "./FruitFilter"
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      // initialize the fruit list to the full list passed in props
-      fruitsToDisplay: props.fruits,
-      // intialize the filter value to an empty string
-      filterValue: ''
-    };
+const FruitContainer = (props) => {
+
+  const [fruitsToDisplay, setFruitsToDisplay] = useState(props.fruits)
+
+  const handleFilterChange = (event) => {
+    event.preventDefault()
+    const filterValue = event.target.value
+    
+    const filteredFruitList = props.fruits.filter(fruit => {
+        return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
+    })
+
+    setFruitsToDisplay(filteredFruitList)
   }
 
-  handleFilterChange = (event) => {
-  event.preventDefault()
-  const filterValue = event.target.value
-  
-  const filteredFruitList = this.props.fruits.filter(fruit => {
-      return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
-  })
-
-  this.setState({
-      fruitsToDisplay: filteredFruitList
-  })
-}
-
-  render() {
-    return (
+    return(
       <div>
-        <FruitFilter handleFilterChange={this.handleFilterChange} />
-        <FruitList fruits={this.state.fruitsToDisplay} />
+        <FruitFilter handleFilterChange={handleFilterChange}/>
+        <FruitList fruits={fruitsToDisplay}/>
       </div>
     )
   }
 
-}
+export default FruitContainer 
 ```
 
 All of the data is hoisted to the top of the tree in the container, and I pass
