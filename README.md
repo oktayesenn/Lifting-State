@@ -157,11 +157,11 @@ except it is passed a different list of fruits.
 
 ```html
 <div>
- <FruitFilter handleFilterChange={this.handleFilterChange} />
+ <FruitFilter handleFilterChange={handleFilterChange} />
  <p>Matching fruits:</p>
- <FruitList fruits={this.state.fruitsToDisplay} />
+ <FruitList fruits={fruitsToDisplay} />
  <p>Unmatched fruits:</p>
- <FruitList fruits={this.state.unmatchedFruits} />
+ <FruitList fruits={unmatchedFruits} />
 </div>
 ```
 
@@ -175,18 +175,16 @@ the current search term.
 Notice that in the constructor the app initializes the value of `unmatchedFruits` to just an empty list. Within `HandleChange`, we now need to update that list.
 
 ```js
-const filteredFruitList = this.props.fruits.filter(fruit => {
+const filteredFruitList = props.fruits.filter(fruit => {
     return fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
 })
 
-const unmatchedFruitsList = this.props.fruits.filter(fruit => {
+const unmatchedFruitsList = props.fruits.filter(fruit => {
     return !fruit.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase())
 })
 
-this.setState({
-    fruitsToDisplay: filteredFruitList,
-    unmatchedFruits: unmatchedFruitsList
-})
+  const [fruitsToDisplay, setFruitsToDisplay] = useState(props.fruits)
+  const [unmatchedFruits, setUnmatchedFruits] = useState([])
 ```
 
 ## Final Thoughts
