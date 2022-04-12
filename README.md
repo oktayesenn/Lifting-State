@@ -40,7 +40,7 @@ How to achieve this, though? Using unidrectional data flow, of course! If I crea
 
 ### Child components
 
-Now that I know the components I need, the `state` I need, and where everything needs to be, I can start writing some code. First, I'll create the child components. I can use functional components, since they won't need to hold their own state.
+Now that I know the components I need, the `state` I need, and where everything needs to be, I can start writing some code. First, I'll create the child components.
 
 ```javascript
 const FruitList = props => (
