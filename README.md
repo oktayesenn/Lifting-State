@@ -65,8 +65,8 @@ const FruitFilter = props => (
 
 ### Container component
 
-My container will be a class with a few methods I'll use to initialize and update the state of the two child components.
-In the constructor, I'll initialize the state:
+My container will have a few methods I'll use to initialize and update the state of the two child components.
+I'll first initialize the state:
 
 ```javascript
 // initialize the fruit list to the full list passed in props
